@@ -1,0 +1,34 @@
+# Ignorar archivos generados por Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv/             # Ignorar la carpeta del entorno virtual
+.ipynb_checkpoints
+.mypy_cache
+.pytest_cache
+.ruff_cache
+
+# Ignorar archivos específicos de Django
+db.sqlite3        # Si alguna vez usas SQLite temporalmente
+media/            # Si vas a subir archivos de usuarios (usualmente no se versionan)
+static_collected/ # Archivos estáticos de Django recolectados
+
+# Ignorar configuración local y API keys
+GolLog_backend/settings_local.py # ¡Tu API key de TheSportsDB está aquí!
+*.env             # Archivos de entorno (.env)
+.env.local
+
+# Ignorar archivos generados por Node.js / npm
+node_modules/     # Ignorar las dependencias de frontend
+dist/             # Carpeta de build de Vue.js
+npm-debug.log*
+
+# Ignorar archivos específicos de VS Code
+.vscode/          # Configuración específica de VS Code
+.history/
+
+# Ignorar archivos del sistema operativo
+.DS_Store         # macOS
+Thumbs.db         # Windows
