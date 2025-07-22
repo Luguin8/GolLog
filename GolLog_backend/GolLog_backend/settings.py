@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core', # app core
     'rest_framework', # Django REST Framework
+    'corsheaders', # CORS headers for API
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # CORS middleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -126,3 +128,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CORS settings
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",  # Origen de frontend vue.js
+    "http://127.0.0.1:8080",  # Por si las dudas
+]
+# Si quieres permitir todas las peticiones (menos seguro, solo para desarrollo)
+# CORS_ALLOW_ALL_ORIGINS = True
+
+# settings.py (al final del archivo)
+try:
+    from .settings_local import *
+except ImportError:
+    pass
