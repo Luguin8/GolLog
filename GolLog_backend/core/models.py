@@ -37,6 +37,7 @@ class Partido(models.Model):
     resultado_local = models.IntegerField(null=True, blank=True) # intHomeScore
     resultado_visitante = models.IntegerField(null=True, blank=True) # intAwayScore
     estadio = models.CharField(max_length=200, blank=True, null=True) # strVenue
+    status_partido = models.CharField(max_length=50, default='Programado')
     # Puedes añadir más campos como strStatus (si el partido ha terminado o no), etc.
 
     def __str__(self):

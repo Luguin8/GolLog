@@ -5,7 +5,9 @@
     <p v-if="error">{{ error }}</p>
     <ul v-if="ligas.length">
       <li v-for="liga in ligas" :key="liga.id">
-        {{ liga.nombre }} ({{ liga.pais }})
+        <router-link :to="{ name: 'EquiposByLiga', params: { ligaId: liga.id } }" class="liga-link">
+          {{ liga.nombre }} ({{ liga.pais }})
+        </router-link>
       </li>
     </ul>
     <p v-else-if="!loading && !error">No se encontraron ligas. Ejecuta 'python manage.py import_sports_data' en el backend.</p>
@@ -74,6 +76,18 @@ li {
   padding: 10px 15px;
   border-radius: 5px;
   border: 1px solid #eee;
+}
+
+.liga-link {
+  text-decoration: none;
+  color: #2c3e50;
+  font-weight: bold;
+  display: block;
+  padding: 0;
+}
+
+.liga-link:hover {
+  color: #42b983;
 }
 
 p {

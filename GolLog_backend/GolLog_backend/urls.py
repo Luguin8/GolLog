@@ -16,6 +16,7 @@ urlpatterns = [
     # Incluye las URLs generadas por el enrutador de DRF bajo el prefijo 'api/'
     path('api/', include(router.urls)),
     # Opcional: Esto añade URLs para el login/logout en el navegador para DRF.
+    path('api/', include('core.urls')),  # Incluye las URLs de tu aplicación core
     # Útil para probar la API directamente en el navegador.
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

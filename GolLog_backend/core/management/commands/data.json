@@ -1,0 +1,109 @@
+{
+  "ligas": [
+    {
+      "thesportsdb_id": "4335",
+      "nombre": "La Liga (España)",
+      "pais": "España",
+      "deporte": "Fútbol",
+      "equipos": [
+        {
+          "thesportsdb_id": "133979",
+          "nombre": "Real Madrid",
+          "logo_url": "https://www.thesportsdb.com/images/media/team/badge/z36f6d1531737750.png"
+        },
+        {
+          "thesportsdb_id": "133980",
+          "nombre": "FC Barcelona",
+          "logo_url": "https://www.thesportsdb.com/images/media/team/badge/e71x2c1533227448.png"
+        },
+        {
+          "thesportsdb_id": "133982",
+          "nombre": "Atletico Madrid",
+          "logo_url": "https://www.thesportsdb.com/images/media/team/badge/x95t3b1531738724.png"
+        },
+        {
+          "thesportsdb_id": "133983",
+          "nombre": "Valencia CF",
+          "logo_url": "https://www.thesportsdb.com/images/media/team/badge/m6y5d41531738779.png"
+        }
+      ],
+      "partidos": [
+        {
+          "thesportsdb_id": "match_la_liga_1",
+          "equipo_local_nombre": "Real Madrid",
+          "equipo_visitante_nombre": "FC Barcelona",
+          "fecha": "2025-08-15",
+          "hora": "21:00:00",
+          "resultado_local": null,
+          "resultado_visitante": null,
+          "status_partido": "Programado"
+        },
+        {
+          "thesportsdb_id": "match_la_liga_2",
+          "equipo_local_nombre": "Atletico Madrid",
+          "equipo_visitante_nombre": "Valencia CF",
+          "fecha": "2025-08-16",
+          "hora": "19:30:00",
+          "resultado_local": null,
+          "resultado_visitante": null,
+          "status_partido": "Programado"
+        },
+        {
+          "thesportsdb_id": "match_la_liga_3",
+          "equipo_local_nombre": "FC Barcelona",
+          "equipo_visitante_nombre": "Atletico Madrid",
+          "fecha": "2025-07-20",
+          "hora": "17:00:00",
+          "resultado_local": 2,
+          "resultado_visitante": 1,
+          "status_partido": "Jugado"
+        }
+      ]
+    },
+    {
+      "thesportsdb_id": "4328",
+      "nombre": "Premier League (Inglaterra)",
+      "pais": "Inglaterra",
+      "deporte": "Fútbol",
+      "equipos": [
+        {
+          "thesportsdb_id": "133604",
+          "nombre": "Manchester Utd",
+          "logo_url": "https://www.thesportsdb.com/images/media/team/badge/w3u4u41532439369.png"
+        },
+        {
+          "thesportsdb_id": "133605",
+          "nombre": "Liverpool",
+          "logo_url": "https://www.thesportsdb.com/images/media/team/badge/xt5u4u1532439401.png"
+        },
+        {
+          "thesportsdb_id": "133606",
+          "nombre": "Chelsea",
+          "logo_url": "https://www.thesportsdb.com/images/media/team/badge/tsrwtw1473523267.png"
+        }
+      ],
+      "partidos": [
+        {
+          "thesportsdb_id": "match_pl_1",
+          "equipo_local_nombre": "Manchester Utd",
+          "equipo_visitante_nombre": "Liverpool",
+          "fecha": "2025-08-17",
+          "hora": "16:00:00",
+          "resultado_local": null,
+          "resultado_visitante": null,
+          "status_partido": "Programado"
+        },
+        {
+          "thesportsdb_id": "match_pl_2",
+          "equipo_local_nombre": "Chelsea",
+          "equipo_visitante_nombre": "Manchester Utd",
+          "fecha": "2025-07-25",
+          "hora": "20:00:00",
+          "resultado_local": 1,
+          "resultado_visitante": 1,
+          "status_partido": "Jugado"
+        }
+      ]
+    }
+  ]
+}

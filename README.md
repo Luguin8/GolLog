@@ -18,38 +18,37 @@ GolLog es una plataforma web para que los usuarios puedan registrarse, explorar 
 * **Vue.js (Vue 3):** Framework progresivo de JavaScript para construir la interfaz de usuario.
 * **Vue CLI:** Herramienta de línea de comandos para la creación y gestión de proyectos Vue.js.
 
-### Integración de Datos
-* **TheSportsDB.com API:** API externa utilizada para obtener datos reales de ligas, equipos y partidos de fútbol.
-
 ## Estructura del Proyecto
+
+```
 GolLog/
-├── venv/                   # Entorno virtual de Python (IGNORADO por Git)
-├── GolLog_backend/         # Carpeta raíz del proyecto Django
-│   ├── GolLog_backend/     # Archivos de configuración del proyecto Django (settings.py, urls.py, etc.)
-│   │   └── settings_local.py # Archivo local para API keys (IGNORADO por Git)
-│   ├── core/               # Aplicación principal de Django
+├── GolLog_backend/         # Backend Django + DRF
+│   ├── manage.py
+│   ├── core/               # App principal
+│   │   ├── models.py       # Modelos: Liga, Equipo, Partido, Calificacion
+│   │   ├── serializers.py  # Serializadores DRF
+│   │   ├── views.py        # ViewSets DRF
+│   │   ├── urls.py         # Rutas DRF
+│   │   ├── admin.py, apps.py, tests.py
 │   │   ├── management/
 │   │   │   └── commands/
-│   │   │       └── import_sports_data.py # Comando para importar datos de TheSportsDB
-│   │   ├── models.py       # Definición de los modelos de base de datos (Liga, Equipo, Partido, Calificacion)
-│   │   ├── serializers.py  # Serializadores de DRF para convertir datos a/desde JSON
-│   │   └── views.py        # Vistas de DRF para la API RESTful
-│   ├── manage.py           # Utilidad de línea de comandos de Django
-│   └── db.sqlite3          # Base de datos SQLite (IGNORADA por Git, usamos PostgreSQL)
-├── .gitignore              # Archivo para ignorar archivos/carpetas en Git
-└── README.md               # Este archivo de documentación
-
-## Configuración y Ejecución del Proyecto (Backend)
-
-Sigue estos pasos para poner en marcha el backend de GolLog en tu máquina local.
-
-### Prerequisitos
-* **Python 3.x**
-* **PostgreSQL** (con `pgAdmin 4` opcional para gestión de DB)
-* **Node.js y npm** (LTS recomendado)
-* **Git**
-
-### 1. Clonar el Repositorio
-```bash
-git clone [https://github.com/Luguin8/GolLog.git](https://github.com/Luguin8/GolLog.git)
-cd GolLog
+│   │   │       ├── import_sports_data.py         # Importa datos de prueba desde JSON
+│   │   │       ├── import_sports_data (thesportsdb).py # Importa datos reales desde TheSportsDB
+│   │   │       └── data.json                     # Datos de ejemplo (ligas, equipos, partidos)
+│   │   └── migrations/
+│   ├── GolLog_backend/
+│   │   ├── settings.py, settings_local.py        # Configuración Django y API Key
+│   │   ├── urls.py, wsgi.py, asgi.py
+│   │   └── __init__.py
+├── gollog_frontend/        # Frontend Vue.js
+│   ├── src/
+│   │   ├── main.js         # Configuración Vue y rutas
+│   │   ├── App.vue         # Layout principal
+│   │   └── components/
+│   │       ├── LigaList.vue    # Lista de ligas
+│   │       └── EquipoList.vue  # Lista de equipos por liga
+│   ├── public/index.html
+│   ├── package.json, vue.config.js, babel.config.js, jsconfig.json
+│   └── .gitignore
+├── .gitignore
+└── README.md               # Este archivo
