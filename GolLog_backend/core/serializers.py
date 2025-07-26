@@ -2,11 +2,25 @@ from rest_framework import serializers
 from .models import Liga, Equipo, Partido, Calificacion
 from django.contrib.auth.models import User
 
-# Serializer para el modelo Liga
-class LigaSerializer(serializers.ModelSerializer):
+# Serializer simple para el usuario
+class UserSimpleSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Liga
-        fields = '__all__' # Incluye todos los campos del modelo Liga
+        model = User
+        fields = ['id', 'username']
+
+class CalificacionSerializer(serializers.ModelSerializer):
+    usuario = UserSimpleSerializer(read_only=True)  # Muestra el usuario que hizo la calificación
+    partido_nombre_evento = serializers.ReadOnlyField(source='partido.nombre_evento')  # Muestra el nombre del partido
+
+    class Meta:
+        model = Calificacion
+        fields = ['__all__']  # Incluye todos los campos del modelo Calificacion
+        read_only_fields = ('usuario', 'partido_nombre_evento')
+
+    def create(self, validated_data):
+        return Calificacion.objects.create(**validated_data)
+
+
 
 # Serializer para el modelo Equipo
 class EquipoSerializer(serializers.ModelSerializer):
@@ -22,24 +36,33 @@ class PartidoSerializer(serializers.ModelSerializer):
     equipo_local_nombre = serializers.ReadOnlyField(source='equipo_local.nombre')
     equipo_visitante_nombre = serializers.ReadOnlyField(source='equipo_visitante.nombre')
     liga_nombre = serializers.ReadOnlyField(source='liga.nombre')
+    calificaciones = CalificacionSerializer(many=True, read_only=True)  # Incluye las calificaciones del partido
 
     class Meta:
         model = Partido
         fields = '__all__' # Incluye todos los campos del modelo Partido
         read_only_fields = ('equipo_local_nombre', 'equipo_visitante_nombre', 'liga_nombre',)
 
-# Serializer para el modelo User (solo campos públicos o necesarios para calificaciones)
-class UserSerializer(serializers.ModelSerializer):
+
+# Serializer para el modelo Liga
+class LigaSerializer(serializers.ModelSerializer):
+    # Nuevo: Incluye todos los equipos relacionados con esta liga
+    equipos = EquipoSerializer(many=True, read_only=True, source='equipos_de_liga') # <-- ¡Clave para relaciones inversas!
+
+    class Meta:
+        model = Liga
+        fields = '__all__'
+
+class RegisterSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
     class Meta:
         model = User
-        fields = ['id', 'username'] # Solo incluye el ID y el nombre de usuario
+        fields = ('username', 'password')
 
-# Serializer para el modelo Calificacion
-class CalificacionSerializer(serializers.ModelSerializer):
-    usuario_username = serializers.ReadOnlyField(source='usuario.username') # Muestra el nombre de usuario
-    partido_nombre_evento = serializers.ReadOnlyField(source='partido.nombre_evento') # Muestra el nombre del partido
-
-    class Meta:
-        model = Calificacion
-        fields = '__all__' # Incluye todos los campos del modelo Calificacion
-        read_only_fields = ('usuario_username', 'partido_nombre_evento',)
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            username=validated_data['username'],
+            password=validated_data['password']
+        )
+        return user

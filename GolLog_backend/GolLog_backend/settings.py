@@ -9,8 +9,11 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+from datetime import timedelta
 from pathlib import Path
+from re import search
+
+import django_filters
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,6 +33,9 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'  # Directorio para archivos multimedia
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,6 +47,8 @@ INSTALLED_APPS = [
     'rest_framework', # Django REST Framework
     'corsheaders', # CORS headers for API
     'django_filters', # Django filters for API
+    'rest_framework.authtoken', # Token authentication for DRF
+    'rest_framework_simplejwt', # JWT authentication for DRF
 ]
 
 MIDDLEWARE = [
@@ -143,3 +151,35 @@ try:
     from .settings_local import *
 except ImportError:
     pass
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication', # Usar JWT para autenticación 
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ],
+    'SEARCH_PARAM': 'search',  # Parámetro de búsqueda
+    'ORDERING_PARAM': 'ordering',  # Parámetro de ordenamiento
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,  # Tamaño de página por defecto
+}
+
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60), # Token de acceso dura 1 hora
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # Token de refresco dura 1 día
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+}

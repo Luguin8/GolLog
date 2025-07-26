@@ -35,7 +35,7 @@ export default {
       try {
         // Axios ya tiene la URL base ('http://127.0.0.1:8000/api/') configurada en main.js
         const response = await axios.get('ligas/'); 
-        this.ligas = response.data;
+        this.ligas = response.data.results;
         this.loading = false;
       } catch (error) {
         console.error("Error al cargar las ligas:", error);

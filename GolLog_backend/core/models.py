@@ -17,7 +17,8 @@ class Equipo(models.Model):
     thesportsdb_id = models.CharField(max_length=50, unique=True, db_index=True) # ID único del equipo en TheSportsDB
     nombre = models.CharField(max_length=200) # strTeam
     logo_url = models.URLField(max_length=500, blank=True, null=True) # strTeamBadge (URL del logo)
-    liga = models.ForeignKey(Liga, on_delete=models.CASCADE, related_name='equipos') # Equipo pertenece a una Liga
+    logo_imagen = models.ImageField(upload_to='logos/', blank=True, null=True) # Imagen del logo (opcional, si quieres guardar la imagen en el servidor)
+    liga = models.ForeignKey(Liga, on_delete=models.CASCADE, related_name='equipos_de_liga') # Equipo pertenece a una Liga
 
     def __str__(self):
         return self.nombre
