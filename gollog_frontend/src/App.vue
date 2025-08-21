@@ -8,9 +8,12 @@
       <router-link to="/">Inicio</router-link>
       <router-link to="/partidos">Todos los Partidos</router-link>
       <router-link to="/ligas">Ligas</router-link>
-      <router-link to="/login">Login</router-link>
-      <router-link to="/register">Registro</router-link>
       <router-link to="/perfil">Mi Perfil</router-link>
+
+      <!-- Botones de login/logout, condicionales -->
+      <router-link v-if="!authStore.isAuthenticated" to="/login">Login</router-link>
+      <router-link v-if="!authStore.isAuthenticated" to="/register">Registro</router-link>
+      <a v-if="authStore.isAuthenticated" @click="logout" href="#">Logout</a>
     </nav>
     <main class="app-main">
       <router-view></router-view>
@@ -19,8 +22,25 @@
 </template>
 
 <script>
+import { useAuthStore } from './stores/auth'; // Importa el store de Pinia
+import { useRouter } from 'vue-router'; // Importa el router
+
 export default {
   name: 'App',
+  setup() {
+    const authStore = useAuthStore();
+    const router = useRouter();
+
+    const logout = () => {
+      authStore.logout();
+      router.push('/login'); // Redirige al login después de cerrar sesión
+    };
+
+    return {
+      authStore,
+      logout,
+    };
+  },
 };
 </script>
 

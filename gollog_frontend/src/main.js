@@ -1,11 +1,13 @@
 import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import App from './App.vue';
-import router from './router'; // <-- Importa el router desde su archivo
-import axios from 'axios';
-
-// Configura la URL base de tu API de Django
-axios.defaults.baseURL = 'http://127.0.0.1:8000/api/';
+import router from './router';
 
 const app = createApp(App);
-app.use(router); // <-- Le dice a la app que use el router importado
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
+
+app.use(pinia);
+app.use(router);
 app.mount('#app');
