@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'django_filters', # Django filters for API
     'rest_framework.authtoken', # Token authentication for DRF
     'rest_framework_simplejwt', # JWT authentication for DRF
+    'perfiles',  # app perfiles
+    'partidos'  # app partidos
 ]
 
 MIDDLEWARE = [
