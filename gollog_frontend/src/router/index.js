@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { useAuthStore } from '../stores/auth'; // Importamos el store de Pinia
 
 // Importar todos los componentes de la aplicación
 import HomePage from '../components/HomePage.vue';
@@ -42,6 +43,7 @@ const routes = [
     path: '/perfil',
     name: 'UserProfilePage',
     component: UserProfilePage,
+    meta: { requiresAuth: true } // Protegemos esta ruta
   },
   {
     path: '/login',
@@ -58,6 +60,25 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+// Guardias de navegación (Navigation Guards)
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+  const isAuthenticated = authStore.isAuthenticated;
+  
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    // Si la ruta requiere autenticación y el usuario no está logueado,
+    // lo redirigimos a la página de login
+    next({ name: 'LoginPage' });
+  } else if ((to.name === 'LoginPage' || to.name === 'RegisterPage') && isAuthenticated) {
+    // Si el usuario está logueado y trata de ir a Login o Register,
+    // lo redirigimos al perfil
+    next({ name: 'UserProfilePage' });
+  } else {
+    // Si no hay restricciones, o si se cumplen, la navegación continúa
+    next();
+  }
 });
 
 export default router;
